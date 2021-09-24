@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:portfoli/constants/app_theme.dart';
-import 'package:portfoli/constants/constants.dart';
+import 'package:portfoli/pages/about_page/about_page.dart';
+import 'package:portfoli/pages/contact_page/contact_page.dart';
 import 'package:portfoli/pages/main_page.dart';
+import 'package:portfoli/pages/project_page/project_page.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() {
+  setPathUrlStrategy();
   runApp(const MyApp());
 }
 
@@ -17,10 +21,15 @@ class MyApp extends StatelessWidget {
     return Sizer(
         builder: (context, orientation, deviceType) {
           return MaterialApp(debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
+            title: 'Akash',
             theme: AppTheme().lightThemeData,
             darkTheme: AppTheme().darkThemeData,
             home: const MainPage(),
+            routes: {
+              ProjectPage.routeName: (ctx) =>const ProjectPage(),
+              AboutPage.routeName: (ctx) =>const AboutPage(),
+              ContactPage.routeName: (ctx) =>const ContactPage(),
+            },
           );
         });
   }}
