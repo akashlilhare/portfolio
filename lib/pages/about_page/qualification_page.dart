@@ -4,6 +4,7 @@ import 'package:portfoli/database/qualification.dart';
 import 'package:portfoli/utils/responsive.dart';
 import 'package:portfoli/widgets/seaction_sub_header.dart';
 import 'package:timelines/timelines.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class AboutQualification extends StatelessWidget {
   const AboutQualification({Key? key}) : super(key: key);
@@ -79,6 +80,17 @@ class AboutQualification extends StatelessWidget {
         children: [
           SizedBox(height: height*.05,),
           const SectionSubHeader(title: "Qualification"),
+          // Here, default theme colors are used for activeBgColor, activeFgColor, inactiveBgColor and inactiveFgColor
+          Center(
+            child: ToggleSwitch(
+              initialLabelIndex: 0,
+              totalSwitches: 3,
+              labels: ['America', 'Canada', 'Mexico'],
+              onToggle: (index) {
+                print('switched to: $index');
+              },
+            ),
+          ),
           FixedTimeline.tileBuilder(
             builder: TimelineTileBuilder.connected(
               indicatorPositionBuilder: (context, index) => 0.3,

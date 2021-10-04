@@ -44,6 +44,7 @@ dependencies:
   flutter_custom_clippers: ^2.0.0
   font_awesome_flutter: ^9.1.0
   http: ^0.13.3
+  toggle_switch: ^1.2.0
 
 
 dev_dependencies:
