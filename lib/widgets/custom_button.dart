@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfoli/constants/constants.dart';
 
 class CustomButton extends StatelessWidget {
   final Function onTap;
@@ -10,7 +11,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return    ElevatedButton(
       style: ElevatedButton.styleFrom(
-
+primary: Constants.darkPrimaryColor,
         elevation: 3,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0)),

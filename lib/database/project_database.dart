@@ -30,8 +30,8 @@ Project covidTracker = Project(
       "Give Information about symptoms of Covid-19",
       "Visualize data with the help of graphs."
     ],
-    projectSrc: ["https://github.com/akashlilhare/covid19_tracker"],
-    tag: ["mobile"],
+    projectSrc: ["https://github.com/akashlilhare/covid19_tracker","",""],
+    tag: ["All Project","Mobile App"],
     imageSrc: "assets/project_assets/1.jpg",
     techUsed: [flutter, dart]);
 
@@ -43,10 +43,10 @@ Project newsApp = Project(
       "Show news in 8 different categories.",
       "Show news according to country."
     ],
-    tag: ["mobile"],
+    tag: ["All Project","Mobile App"],
     imageSrc: "assets/project_assets/2.jpg",
     title: "News App",
-    projectSrc: ["https://github.com/akashlilhare/news_app"],
+    projectSrc: ["https://github.com/akashlilhare/news_app","",""],
     techUsed: [flutter, dart]);
 
 Project homeWorkoutApp = Project(
@@ -58,12 +58,12 @@ Project homeWorkoutApp = Project(
       "Visualize user data with the help of graphs and charts.",
       "Added notification system to remind users"
     ],
-    tag: ["mobile"],
+    tag: ["All Project","Mobile App"],
     imageSrc: "assets/project_assets/3.jpg",
     title: "Home Workout App",
     projectSrc: [
       "",
-      "https://play.google.com/store/apps/details?id=com.akashlilhare.homeworkout"
+      "https://play.google.com/store/apps/details?id=com.akashlilhare.homeworkout",""
     ],
     techUsed: [flutter, dart, sqlite]);
 
@@ -75,24 +75,25 @@ Project flShop = Project(
       "Order get added to Firebase Database.",
       "Shopping cart, Order summary and Manage product",
     ],
-    tag: ["mobile"],
+    tag: ["All Project","Mobile App"],
     imageSrc: "assets/project_assets/4.jpg",
     title: "FlShop",
-    projectSrc: [""],
+   // TODO: Add source Check for evey project
+    projectSrc: ["","",""],
     techUsed: [flutter, dart, firebase]);
 
 Project todoList = Project(
     subtitle: "Todoit is a task management app to help you stay organized and manage your day-to-day. It allows users to manage their tasks from a smartphone.",
     features: [
-      "User friendly task management."
-          "Grouping tasks in handy task lists."
-          "Checkmark the finished task and delete the task."
-          "Smart home screen widgets show instantly what to do."
+      "User friendly task management.",
+          "Grouping tasks in handy task lists.",
+          "Checkmark the finished task and delete the task.",
+          "Smart home screen widgets show instantly what to do.",
     ],
-    tag: ["mobile"],
+    tag: ["All Project","Mobile App"],
     imageSrc: "assets/project_assets/5.jpg",
     title: "Todoit",
-    projectSrc: ["https://github.com/akashlilhare/todoit"],
+    projectSrc: ["https://github.com/akashlilhare/todoit","",""],
     techUsed: [flutter, dart, sqlite]);
 
 Project heartDiseaseAnalysis = Project(
@@ -103,10 +104,11 @@ Project heartDiseaseAnalysis = Project(
       "Apply various machine learning model to get accurate prediction",
       "Get Best Accuracy of 0.89 with Logistic Regression algorithm"
     ],
-    tag: ["machine_learning"],
+    //TODO : remove other tags
+    tag: ["Machine Learning", "All Project", "Python", "Web Site"],
     imageSrc: "assets/project_assets/6.jpg",
     title: "Heart Disease Analysis",
-    projectSrc: ["https://github.com/akashlilhare/heart-disease-analysis"],
+    projectSrc: ["https://github.com/akashlilhare/heart-disease-analysis","",""],
     techUsed: [python]);
 
 

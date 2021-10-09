@@ -47,29 +47,32 @@ class BuildDrawer extends StatelessWidget {
           child: Drawer(
             child: Column(
                 children:[
-
-                  Image.asset("assets/devloper.gif"),
-                  SizedBox(height: 20,),
-                  ...headerTitle
-                      .map((item) => ListTile(
-                    title: Text(item.link),
-                    onTap: () {
-                      item.onTap(context);
-                    },
-                  ))
-                      .toList(),
-                  Spacer(),
-                  ClipPath(
-                    clipper: OvalTopBorderClipper(),
-               //     clipper: WaveClipperTwo(flip: true,reverse: true),
-                    child: Container(
-                      height: 100,
-                      width: double.infinity,
-
-                      color: Colors.blue.shade100,
-                      child: TextButton(child: Text("Exit",style: TextStyle(color: Colors.black),),
-
-                        onPressed: () {
+                    Image.asset("assets/devloper.gif"),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ...headerTitle
+                        .map((item) => ListTile(
+                              title: Text(item.link),
+                              onTap: () {
+                                item.onTap(context);
+                              },
+                            ))
+                        .toList(),
+                    const Spacer(),
+                    ClipPath(
+                      clipper: OvalTopBorderClipper(),
+                      //     clipper: WaveClipperTwo(flip: true,reverse: true),
+                      child: Container(
+                          height: 100,
+                          width: double.infinity,
+                          color: Colors.blue.shade100,
+                          child: TextButton(
+                            child: Text(
+                              "Exit",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            onPressed: () {
                           if (Platform.isAndroid) {
                             SystemNavigator.pop();
                           } else if (Platform.isIOS) {

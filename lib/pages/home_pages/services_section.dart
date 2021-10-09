@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/models/services_model.dart';
 import 'package:portfoli/utils/responsive.dart';
 import 'package:portfoli/widgets/secation_header.dart';
@@ -33,7 +34,7 @@ class ServicesSection extends StatelessWidget {
     buildServices() {
       buildService(Service service) {
         return Container(
-          margin: EdgeInsets.all(height * .02),
+          margin: EdgeInsets.only(left: width*.02,right:  width*.02,bottom: height*.02),
           padding: EdgeInsets.all(width * .04),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -42,23 +43,26 @@ class ServicesSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
+              SizedBox(height: height * .01),
               Icon(
                 service.icon,
-                color: Colors.blue,
+                color: Constants.darkPrimaryColor,
               ),
-              SizedBox(height: height * .03),
+              SizedBox(height: height * .02),
               Text(
                 service.title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontWeight: FontWeight.w600, fontSize: height * .025),
+                    fontWeight: FontWeight.w600, fontSize:20),
               ),
-              SizedBox(height: height * .02),
+              SizedBox(height: height * .01),
+
               Text(
                 service.subTitle,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black54),
-              )
+                style: TextStyle(color: Colors.black54,fontSize: 15,letterSpacing: 1.5),
+              ),
+              SizedBox(height: height * .01),
             ],
           ),
         );

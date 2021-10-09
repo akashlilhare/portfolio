@@ -73,6 +73,30 @@ class AboutQualification extends StatelessWidget {
       );
     }
 
+    buildcertificate() {
+      return
+        Column(
+            children:
+            qualificationList
+                .map((certificate) => Container(
+              margin: EdgeInsets.symmetric(vertical: 8),
+              decoration: BoxDecoration(border:Border.all(color: Constants.lightPrimaryColor), borderRadius: BorderRadius.all(Radius.circular(16)),),
+              child: ExpansionTile(
+                expandedAlignment: Alignment.bottomCenter,
+
+
+                expandedCrossAxisAlignment:CrossAxisAlignment.end ,
+
+                title: Text(
+                  certificate.title,
+                ),
+
+                children: [Text(certificate.subTitle)],
+              ),
+            ))
+                .toList());
+    }
+
     return Container(
       padding: AppPadding(context: context).mainPadding(),
       child: Column(
@@ -80,28 +104,28 @@ class AboutQualification extends StatelessWidget {
         children: [
           SizedBox(height: height*.05,),
           const SectionSubHeader(title: "Qualification"),
-          // Here, default theme colors are used for activeBgColor, activeFgColor, inactiveBgColor and inactiveFgColor
-          Center(
-            child: ToggleSwitch(
-              initialLabelIndex: 0,
-              totalSwitches: 3,
-              labels: ['America', 'Canada', 'Mexico'],
-              onToggle: (index) {
-                print('switched to: $index');
-              },
-            ),
-          ),
-          FixedTimeline.tileBuilder(
-            builder: TimelineTileBuilder.connected(
-              indicatorPositionBuilder: (context, index) => 0.3,
-              connectionDirection: ConnectionDirection.before,
-              contentsAlign: ContentsAlign.alternating,
-              contentsBuilder: (context, index) => buildContent(index),
-              connectorBuilder: (_, index, __) => const SolidLineConnector(),
-              indicatorBuilder: (_, index) => Indicator.dot(),
-              itemCount: qualificationList.length,
-            ),
-          ),
+          buildcertificate()
+          // Center(
+          //   child: ToggleSwitch(
+          //     initialLabelIndex: 0,
+          //     totalSwitches: 3,
+          //     labels: ['America', 'Canada', 'Mexico'],
+          //     onToggle: (index) {
+          //       print('switched to: $index');
+          //     },
+          //   ),
+          // ),
+          // FixedTimeline.tileBuilder(
+          //   builder: TimelineTileBuilder.connected(
+          //     indicatorPositionBuilder: (context, index) => 0.3,
+          //     connectionDirection: ConnectionDirection.before,
+          //     contentsAlign: ContentsAlign.alternating,
+          //     contentsBuilder: (context, index) => buildContent(index),
+          //     connectorBuilder: (_, index, __) => const SolidLineConnector(),
+          //     indicatorBuilder: (_, index) => Indicator.dot(),
+          //     itemCount: qualificationList.length,
+          //   ),
+          // ),
         ],
       ),
     );

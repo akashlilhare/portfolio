@@ -23,6 +23,13 @@ class AboutHeader extends StatelessWidget {
       );
     }
 
+    buildImage(){
+      return SizedBox(
+        height: height *.35,
+          width: height *.35,
+          child: Image.asset("assets/dev3.gif"));
+    }
+
     buildName() {
       return RichText(
           text: TextSpan(children: [
@@ -53,10 +60,11 @@ class AboutHeader extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: height*.02,),
+        SizedBox(height: height*.04,),
 
         buildName(),
         SectionSubHeader(title: "Flutter Developer"),
+        buildImage(),
         buildIntro(p1),
         buildIntro(p2),
         buildIntro(p3),

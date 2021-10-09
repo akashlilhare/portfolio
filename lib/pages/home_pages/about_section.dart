@@ -10,11 +10,12 @@ class AboutSection extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    bool isMobile = width < 500;
 
     buildImage() {
       return Container(
-        height: width * .30,
-        width: width * .30,
+        height: isMobile ? height * .3 : width * .30,
+        width: isMobile ? height * .3 : width * .30,
         child: Image.asset("assets/dev3.gif"),
       );
     }
@@ -36,7 +37,7 @@ class AboutSection extends StatelessWidget {
                   num,
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 22),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
                 Text(
@@ -59,10 +60,26 @@ class AboutSection extends StatelessWidget {
         );
       }
 
-      buildButton(String title) {
-        return CustomButton(
-          onTap: () {},
-          title: title,
+      
+
+      buildButton() {
+        return Column(
+
+          children: [
+            SizedBox(height:height*  .03,),
+            CustomButton(
+              onTap: () {},
+              title: "Download Resume",
+            ),
+            SizedBox(height:height* .02,),
+
+            CustomButton(
+              onTap: () {},
+              title: "Read More",
+            ),
+
+
+          ],
         );
       }
 
@@ -73,14 +90,8 @@ class AboutSection extends StatelessWidget {
             height: height * .04,
           ),
           buildNumberCard(),
-          SizedBox(
-            height: height * .03,
-          ),
-          buildButton("Download Resume"),
-          SizedBox(
-            height: height * .02,
-          ),
-          buildButton("Read More"),
+          buildButton()
+         
         ],
       );
     }
@@ -92,11 +103,11 @@ class AboutSection extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SectionHeader(
-                title: "About Me", subTitle: "Let me introduce myself"),
             SizedBox(
-              height: height * .1,
+              height: height * .05,
             ),
+            const SectionHeader(
+                title: "About Me", subTitle: "Let me introduce myself"),
             width > 725
                 ? Container(
                     child: Row(
@@ -112,13 +123,13 @@ class AboutSection extends StatelessWidget {
                     children: [
                       buildImage(),
                       SizedBox(
-                        height: height * .1,
+                        height: height * .05,
                       ),
                       buildCard()
                     ],
                   ),
             SizedBox(
-              height: height * .1,
+              height: height * .05,
             ),
           ],
         ),

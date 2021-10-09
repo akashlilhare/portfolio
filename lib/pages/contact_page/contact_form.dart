@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:portfoli/utils/responsive.dart';
+import 'package:portfoli/widgets/send_button.dart';
 import '../../constants/constants.dart';
 import 'package:http/http.dart' as http;
 
+import 'contact_card.dart';
 
-enum ButtonState{init, loading, success, failure}
+enum ButtonState { init, loading, success, failure }
 
 class ContactForm extends StatefulWidget {
   const ContactForm({Key? key}) : super(key: key);
@@ -16,15 +18,12 @@ class ContactForm extends StatefulWidget {
   State<ContactForm> createState() => _ContactFormState();
 }
 
-
-
 class _ContactFormState extends State<ContactForm> {
   ButtonState state = ButtonState.init;
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     TextEditingController nameController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController messageController = TextEditingController();
@@ -94,82 +93,11 @@ class _ContactFormState extends State<ContactForm> {
 
     }
 
-
-    contactCard() {
-      copyText(String contact) async {
-        FlutterClipboard.copy(contact).then((value) {
-          return Constants().showToast('copied to clipboard');
-        });
-      }
-
-      buildContactCard(IconData icon, String title, String subtitle) {
-        return Container(
-            margin: EdgeInsets.only(bottom: height * .04),
-            padding: EdgeInsets.symmetric(
-                vertical: height * .04, horizontal: width * .02),
-            decoration: BoxDecoration(
-              color: Colors.blue.shade100,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(16),
-              ),
-            ),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  child: Icon(icon),
-                ),
-                SizedBox(
-                  width: width * .02,
-                ),
-                Expanded(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                              fontSize: height * .025,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
-                        Text(
-                          subtitle,
-                          style: TextStyle(
-                              fontSize: height * .02,
-                              fontWeight: FontWeight.w500),
-                        )
-                      ]),
-                ),
-                IconButton(
-                  onPressed: () => copyText(subtitle),
-                  icon: const Icon(
-                    Icons.copy,
-                  ),
-                  tooltip: "copy : $subtitle",
-                ),
-              ],
-            ));
-      }
-
-      return Column(
-        children: [
-          buildContactCard(Icons.phone_outlined, "Phone", "+91-9669395879"),
-          buildContactCard(
-              Icons.email_outlined, "Email", "akashlilhare14@gmail.com"),
-          buildContactCard(
-              Icons.location_on_outlined, "Location", "Rajnandgao, India"),
-        ],
-      );
-    }
-
     contactForm() {
       getInputDecoration(String title) {
         return InputDecoration(
-            fillColor: Colors.blue.shade50,
-            filled: true,
+
+            fillColor: Colors.white70,
             hintText: title,
             border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(
@@ -191,7 +119,6 @@ class _ContactFormState extends State<ContactForm> {
       }
 
       return Form(
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -239,75 +166,7 @@ class _ContactFormState extends State<ContactForm> {
       );
     }
 
-    return Padding(
-      padding: AppPadding(context: context).mainPadding(),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          width >= 850
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(child: contactCard()),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: width * .06),
-                      child: Center(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.blue.shade100,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(200))),
-                          height: height * .4,
-                          width: 4,
-                        ),
-                      ),
-                    ),
-                    Expanded(child: contactForm())
-                  ],
-                )
-              : Column(
-                  children: [
-                    contactCard(),
-                    SizedBox(
-                      height: height * .07,
-                    ),
-                    contactForm()
-                  ],
-                ),
-          SizedBox(
-            height: height * .1,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-
-class SendButton extends StatelessWidget {
-  final Widget widget;
-  final Function onTap;
-
-
-   const SendButton({Key? key,required this.widget, required this.onTap}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return  ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0)),
-        minimumSize: const Size(150, 55),
-
-      ),
-      onPressed: () {onTap();},
-      child: widget
-
-
-
-    );
+    return Container(child: contactForm());
   }
 }
 

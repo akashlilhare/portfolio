@@ -16,6 +16,7 @@ class ContactCard extends StatelessWidget {
             decoration: BoxDecoration(color: Colors.blue.shade100,borderRadius: BorderRadius.all(Radius.circular(16))),
             margin: AppPadding(context: context).mainPadding(),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: height*.04),
                 SectionHeader(

@@ -13,5 +13,4 @@ List<Qualification> qualificationList = [
   Qualification(title: "B.E. Information Technology", subTitle: "Shri Shankracharya Technical Campus, Bhilai", date: ["July 2018 - ","Present"]),
   Qualification(title: "Software Engineer Intern", subTitle: "Kendriya Vidyalaya, Dongargarh", date: ["March 2017 - ","March 2018"]),
   Qualification(title: "Software Engineer Intern", subTitle: "Kendriya Vidyalaya, Dongargarh", date: ["March 2015 - ","March-2016"]),
-
 ];

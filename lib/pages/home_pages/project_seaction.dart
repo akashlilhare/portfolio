@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/database/project_database.dart';
 import 'package:portfoli/utils/responsive.dart';
 import 'package:portfoli/widgets/custom_button.dart';
@@ -16,6 +17,7 @@ class ProjectSection extends StatefulWidget {
 class _ProjectSectionState extends State<ProjectSection> {
   int i1 = 0;
   late PageController _controller;
+  double radius = 24;
 
   @override
   void initState() {
@@ -89,39 +91,71 @@ class _ProjectSectionState extends State<ProjectSection> {
       );
     }
 
-    return Container(
-      height: height,
-      padding: EdgeInsets.symmetric(
-          horizontal: AppPadding(context: context).getSizedBox(5, 0, 0)),
-
-      color: Colors.blue,
-      child: PageView.builder(
-          itemCount: projectList.length,
-          controller: _controller,
-          itemBuilder: (context, index) {
-            return InkWell(
-                hoverColor: Colors.transparent,
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (builder) {
-                        return ProjectDetailBox(index: index + currIdx);
-                      });
-                },
-                child: width >= 750
-                    ? Row(
-                        children: [
-                          buildImageCard(index),
-                          Expanded(child: buildInfoCard(index)),
-                        ],
-                      )
-                    : Column(
-                        children: [
-                          buildImageCard(index),
-                          buildInfoCard(index),
-                        ],
-                      ));
-          }),
+    return Expanded(
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        child: Container(
+          height: height*.6,
+          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(radius)),color: Constants.darkPrimaryColor),
+          padding: EdgeInsets.symmetric(
+              horizontal: AppPadding(context: context).getSizedBox(5, 0, 0)),
+          child: PageView.builder(
+              itemCount: projectList.length,
+              controller: _controller,
+              itemBuilder: (context, index) {
+                return AspectRatio(
+                  aspectRatio: 2/3,
+                  child: Card(
+                    elevation: 0,
+                      color: Constants.darkPrimaryColor,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(radius))),
+                    child: Column(
+                      children: [
+                        Expanded(
+                            flex: 3,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(radius),
+                                  topRight: Radius.circular(radius)),
+                              child: Image.asset(
+                                projectList[index].imageSrc,
+                                fit: BoxFit.fill,
+                                width: double.infinity,
+                              ),
+                            )),
+                        SizedBox(
+                          height: height * .02,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: width * .03),
+                            child: Column(
+                              children: [
+                                Text(
+                                  projectList[index].title,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                      fontSize: height * 0.025),
+                                ),
+                                SizedBox(
+                                  height: height * .02,
+                                ),
+                                Text(projectList[index].subtitle,maxLines: 3,overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.white),),
+                                SizedBox(
+                                  height: height * .01,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+        ),
+      ),
     );
   }
 
@@ -130,21 +164,26 @@ class _ProjectSectionState extends State<ProjectSection> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: AppPadding(context: context).mainPadding(),
+      padding: EdgeInsets.zero,
       child: Column(
         children: [
           SectionHeader(title: "Projects", subTitle: "See my recent works"),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
+                color: i1==0? Colors.grey: Constants.darkPrimaryColor,
                 icon: Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  _onLeftAction();
-                },
+                onPressed: () =>
+                  i1!=0? _onLeftAction() : null
               ),
-          //  buildCard(_controller, i1, height, width, context),
+
+          
+              buildCard(_controller, i1, height, width, context),
+
               IconButton(
+                color: i1<projectList.length-1?  Constants.darkPrimaryColor:Colors.grey,
                 icon: Icon(Icons.arrow_forward_ios),
                 onPressed: () {
                   _onRightAction();
@@ -152,7 +191,9 @@ class _ProjectSectionState extends State<ProjectSection> {
               ),
             ],
           ),
+          SizedBox(height: height*.02,),
           CustomButton(onTap: () {}, title: "View All"),
+          SizedBox(height: height*.05,),
         ],
       ),
     );

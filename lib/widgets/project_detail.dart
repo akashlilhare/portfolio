@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/database/project_database.dart';
-import 'package:sizer/sizer.dart';
 
 class ProjectDetailBox extends StatelessWidget {
   final int index;
@@ -10,6 +11,9 @@ class ProjectDetailBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     buildFeatures() {
       return projectList[index]
           .features
@@ -17,78 +21,104 @@ class ProjectDetailBox extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.check_circle_outline,
                         size: 20,
-                        color: Colors.blue,
+                        color: Constants.darkPrimaryColor,
                       ),
                       SizedBox(
-                        width: 2.w,
+                        width: width * 0.02,
                       ),
-                      Text(feature)
+                      Flexible(child: Text(feature))
                     ],
                   ),
-                  SizedBox(
-                    height: .5.h,
-                  ),
+                  SizedBox(height: height * .02),
                 ],
-              ))
+          ))
           .toList();
     }
 
     buildTechUsed() {
-      return Row(
+      return Wrap(
           children: projectList[index]
               .techUsed
               .map((tech) => Tooltip(
-            message:tech.title,
-                child: Container(
-                  padding:  EdgeInsets.all( 1.h),
-                  margin:EdgeInsets.only(right: 2.h) ,
-                  decoration: BoxDecoration(
-                    borderRadius:const BorderRadius.all(Radius.circular(12)),
-                    color: Colors.blue.shade100,
-
-                  ),
-                  child: ClipRRect(
-                        child: Image.asset(tech.imageSrc,height: 5.h,width: 5.h,),
-                      ),
-                ),
-              ))
+                    message: tech.title,
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      margin: EdgeInsets.only(right: 12, bottom: 12),
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                          border:
+                              Border.all(color: Constants.darkPrimaryColor)),
+                      child: Text(tech.title),
+                    ),
+                  ))
               .toList());
     }
 
     buildSourceButton(){
-      List<ElevatedButton> btnList =[];
+      List<ElevatedButton> btnList = [];
       var currItem = projectList[index].projectSrc;
+      var btnStyle = ElevatedButton.styleFrom(
+          primary: Constants.darkPrimaryColor,
+          minimumSize: Size(120, 45),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16))));
 
-      if(currItem[0] !=""){
-        btnList.add(ElevatedButton.icon(onPressed: (){}, label: Text("Github"),icon: Icon(FeatherIcons.github,)));
+      if (currItem[0] != "") {
+        btnList.add(ElevatedButton.icon(
+            style: btnStyle,
+            onPressed: () {},
+            label: Text("Github"),
+            icon: Icon(
+              FeatherIcons.github,
+            )));
       }
-      if(currItem[0] !=" "){
-        btnList.add(ElevatedButton.icon(onPressed: (){}, label: Text("PlayStore"),icon: Icon(FeatherIcons.play,)));
+      if (currItem[1] != "") {
+        btnList.add(ElevatedButton.icon(
+            style: btnStyle,
+            onPressed: () {},
+            label: Text("PlayStore"),
+            icon: Icon(
+              FeatherIcons.play,
+            )));
       }
-      if(currItem[0] !=" "){
-        btnList.add(ElevatedButton.icon(onPressed: (){}, label: Text("WebSite"),icon: Icon(FeatherIcons.globe,)));
+      if (currItem[2] != "") {
+        btnList.add(ElevatedButton.icon(
+            style: btnStyle,
+            onPressed: () {},
+            label: Text("WebSite"),
+            icon: Icon(
+              FeatherIcons.globe,
+            )));
       }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ...btnList.map((btn) => Padding(
-          padding:  EdgeInsets.only(right: 2.w),
-          child: btn,
-        )).toList()
-      ],
-    );
-
-
+      return Row(
+        // direction: Axis.horizontal,
+        // alignment: WrapAlignment.end,
+        // runAlignment: WrapAlignment.end,
+        //
+        // crossAxisAlignment: WrapCrossAlignment.end,
+        children: [
+          Spacer(),
+          ...btnList
+              .map((btn) => Padding(
+                    padding: EdgeInsets.only(
+                        bottom: height * .01, right: height * .01),
+                    child: btn,
+                  ))
+              .toList()
+        ],
+      );
     }
 
     return Dialog(
-      insetPadding: EdgeInsets.symmetric(horizontal:40.w,vertical: 0.h),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(18))),
       child: Padding(
-        padding: EdgeInsets.all(3.w),
+        padding: EdgeInsets.all(width * .05),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,32 +127,30 @@ class ProjectDetailBox extends StatelessWidget {
               children: [
                 Text(
                   projectList[index].title,
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 2.5.w),
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
                 ),
                 Spacer(),
-                IconButton(
-                  tooltip: "Close",
-                icon:  Icon(Icons.cancel_outlined,color: Colors.black54,),
-                  onPressed: ()=>Navigator.pop(context),
-
-                ),
+                SizedBox(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: TextButton.styleFrom(
+                        primary: Constants.darkPrimaryColor),
+                    child: Icon(Icons.close),
+                  ),
+                  width: 40,
+                  height: 40,
+                )
               ],
             ),
-            SizedBox(
-              height: 2.h,
-            ),
+            SizedBox(height: height * .02),
             buildTechUsed(),
-            SizedBox(
-              height: 2.h,
-            ),
+            SizedBox(height: height * .02),
             Text(projectList[index].subtitle),
-            SizedBox(
-              height: 2.h,
-            ),
+            SizedBox(height: height * .02),
             ...buildFeatures(),
-            SizedBox(
-              height: 2.h,
-            ),
+            SizedBox(height: height * .02),
             buildSourceButton(),
           ],
         ),
