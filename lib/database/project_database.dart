@@ -1,6 +1,7 @@
 import 'package:portfoli/database/skills_database.dart';
 
 class Project {
+  final int index;
   final String title;
   final String subtitle;
   final List<String> features;
@@ -10,7 +11,8 @@ class Project {
   final List<String>
   projectSrc; //[0] for github, [1] for playstore, [2] for website
 
-  Project({required this.subtitle,
+  Project( {required this.subtitle,
+    required this.index,
     required this.features,
     required this.tag,
     required this.imageSrc,
@@ -33,7 +35,7 @@ Project covidTracker = Project(
     projectSrc: ["https://github.com/akashlilhare/covid19_tracker","",""],
     tag: ["All Project","Mobile App"],
     imageSrc: "assets/project_assets/1.jpg",
-    techUsed: [flutter, dart]);
+    techUsed: [flutter, dart], index: 0);
 
 Project newsApp = Project(
     subtitle:
@@ -47,7 +49,7 @@ Project newsApp = Project(
     imageSrc: "assets/project_assets/2.jpg",
     title: "News App",
     projectSrc: ["https://github.com/akashlilhare/news_app","",""],
-    techUsed: [flutter, dart]);
+    techUsed: [flutter, dart], index: 1);
 
 Project homeWorkoutApp = Project(
     subtitle:
@@ -65,7 +67,7 @@ Project homeWorkoutApp = Project(
       "",
       "https://play.google.com/store/apps/details?id=com.akashlilhare.homeworkout",""
     ],
-    techUsed: [flutter, dart, sqlite]);
+    techUsed: [flutter, dart, sqlite], index: 2);
 
 Project flShop = Project(
     subtitle:
@@ -80,7 +82,7 @@ Project flShop = Project(
     title: "FlShop",
    // TODO: Add source Check for evey project
     projectSrc: ["","",""],
-    techUsed: [flutter, dart, firebase]);
+    techUsed: [flutter, dart, firebase], index: 3);
 
 Project todoList = Project(
     subtitle: "Todoit is a task management app to help you stay organized and manage your day-to-day. It allows users to manage their tasks from a smartphone.",
@@ -94,7 +96,7 @@ Project todoList = Project(
     imageSrc: "assets/project_assets/5.jpg",
     title: "Todoit",
     projectSrc: ["https://github.com/akashlilhare/todoit","",""],
-    techUsed: [flutter, dart, sqlite]);
+    techUsed: [flutter, dart, sqlite], index: 4);
 
 Project heartDiseaseAnalysis = Project(
     subtitle: "Heart disease is one of the dangerous diseases in the world where it may cause death and the patient who has this disease may undergo a serious long term disability. So in this project I try to predict, person is suffering from heart disease or not with the help of historic data",
@@ -109,7 +111,7 @@ Project heartDiseaseAnalysis = Project(
     imageSrc: "assets/project_assets/6.jpg",
     title: "Heart Disease Analysis",
     projectSrc: ["https://github.com/akashlilhare/heart-disease-analysis","",""],
-    techUsed: [python]);
+    techUsed: [python], index: 5);
 
 
 List<Project> projectList = [

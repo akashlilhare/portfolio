@@ -2,14 +2,13 @@ import 'dart:convert';
 
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:portfoli/constants/personal_info.dart';
 import 'package:portfoli/utils/responsive.dart';
 import 'package:portfoli/widgets/send_button.dart';
 import '../../constants/constants.dart';
 import 'package:http/http.dart' as http;
 
-import 'contact_card.dart';
 
-enum ButtonState { init, loading, success, failure }
 
 class ContactForm extends StatefulWidget {
   const ContactForm({Key? key}) : super(key: key);
@@ -19,32 +18,31 @@ class ContactForm extends StatefulWidget {
 }
 
 class _ContactFormState extends State<ContactForm> {
-  ButtonState state = ButtonState.init;
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    var theme = Theme.of(context);
+    PersonalInfo info = PersonalInfo();
     TextEditingController nameController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController messageController = TextEditingController();
 
     Future sendEmail(
         {required String name,
-          required String email,
-          required String message}) async {
-      const serviceId = "service_nsn2v8d";
-      const templateTd = "template_j9qvrsw";
-      const userId = "user_cKUgVy2ZuSrzEXU2rYTun";
-      final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+        required String email,
+        required String message}) async {
+      final url = Uri.parse(info.serviceUrl);
       final response = await http.post(url,
           headers: {
             'origin': 'http://localhost',
             'Content-Type': "application/json",
           },
           body: json.encode({
-            'service_id': serviceId,
-            'template_id': templateTd,
-            'user_id': userId,
+            'service_id': info.serviceId,
+            'template_id': info.templateTd,
+            'user_id': info.userId,
             'template_params': {
               'user_name': name,
               'user_email': email,
@@ -53,10 +51,11 @@ class _ContactFormState extends State<ContactForm> {
           }));
 
       if (response.statusCode == 200) {
-        nameController.clear();
-        emailController.clear();
-        messageController.clear();
         Constants().showToast("Message sent successfully");
+        FocusScope.of(context).unfocus();
+        // nameController.clear();
+        // emailController.clear();
+        // messageController.clear();
       } else {
         Constants().showToast("Not able to send message");
       }
@@ -82,8 +81,6 @@ class _ContactFormState extends State<ContactForm> {
         return;
       }
 
-      FocusScope.of(context).unfocus();
-
       setState(() => isLoading = true);
      await  sendEmail(
           email: emailController.text,
@@ -96,13 +93,10 @@ class _ContactFormState extends State<ContactForm> {
     contactForm() {
       getInputDecoration(String title) {
         return InputDecoration(
-
-            fillColor: Colors.white70,
             hintText: title,
-            border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-              Radius.circular(12),
-            )));
+
+
+            border:  InputBorder.none,);
       }
 
       getTextFieldTitle(String title) {
@@ -113,8 +107,16 @@ class _ContactFormState extends State<ContactForm> {
           child: Text(
             "Your " + title,
             style:
-                TextStyle(fontSize: height * .025, fontWeight: FontWeight.w600),
+        theme.textTheme.headline1!.copyWith(fontSize: width>725?22:20, fontWeight: FontWeight.w600),
           ),
+        );
+      }
+
+      getTextField(Widget field){
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12)),border: Border.all(color:theme.colorScheme.secondaryVariant,width: 1.5)),
+          child: field,
         );
       }
 
@@ -123,22 +125,24 @@ class _ContactFormState extends State<ContactForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             getTextFieldTitle("Name"),
+
+            getTextField(
             TextFormField(
                 controller: nameController,
                 decoration: getInputDecoration("Name"),
-              textInputAction: TextInputAction.next,),
+              textInputAction: TextInputAction.next,),),
             getTextFieldTitle("Email"),
-            TextFormField(
+        getTextField( TextFormField(
                 controller: emailController,
                 decoration: getInputDecoration("Email"),
-              textInputAction: TextInputAction.next,),
+              textInputAction: TextInputAction.next,)),
             getTextFieldTitle("Message"),
-            TextFormField(
+        getTextField(   TextFormField(
               controller: messageController,
               maxLines: 8,
               decoration: getInputDecoration("Message"),
               textInputAction: TextInputAction.done,
-            ),
+        )),
             SizedBox(
               height: height * .04,
             ),
@@ -153,11 +157,11 @@ class _ContactFormState extends State<ContactForm> {
               widget: isLoading? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const CircularProgressIndicator(color: Colors.white,),
+                   CircularProgressIndicator(color: theme.textTheme.headline3!.color,),
                   SizedBox(width: height * 0.05,),
-                  const Text("Sending...")
+                   Text("Sending...",style: theme.textTheme.headline3!.copyWith(fontSize: 16,fontWeight: FontWeight.w600),)
                 ],
-              ):const Text("Send")
+              ): Text("Send",style: theme.textTheme.headline3!.copyWith(fontSize: 16,fontWeight: FontWeight.w600),)
 
               ),
 

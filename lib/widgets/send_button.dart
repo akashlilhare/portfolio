@@ -10,10 +10,10 @@ class SendButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return ElevatedButton(
-
         style: ElevatedButton.styleFrom(
-          primary: Constants.darkPrimaryColor,
+          primary: theme.colorScheme.primaryVariant,
           elevation: 3,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),

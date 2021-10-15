@@ -27,54 +27,29 @@ class MainPage extends StatelessWidget {
         .size
         .width;
     ScrollController _scrollController = ScrollController();
-    var key = GlobalKey();
 
     return Scaffold(
-        drawer:true? null : const BuildDrawer(),
-    appBar:true ? null :buildAppBar(context, width),
-    floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-
-    floatingActionButton: Padding(
-
-    padding: const EdgeInsets.only(top: 8.0),
-    child: FloatingActionButton(
-      backgroundColor: Constants.darkPrimaryColor,
-      elevation: 0,
-      onPressed: (){
-        showBottomSheet(context: context, builder: (context){
-          return Container(
-            child: ListView(
-              children: [
-                ListTile(title: Text("title 1"),),
-                ListTile(title: Text("title 1"),),
-                ListTile(title: Text("title 1"),),
-                ListTile(title: Text("title 1"),),
-              ],
-            ) ,
-          );
-        });
-      },child: Icon(Icons.apps_sharp,),
-    )),
-
-    body:
-    SafeArea(
-    child: Stack(
-    children: [
-
-    SingleChildScrollView(
-    controller: _scrollController,
-    child: Column(
-    children: [
-
-    IntroSection(scrollController: _scrollController,),
-    AboutSection(),
-    ProjectSection(),
-    ServicesSection(),
-    ContactCard(),
-    FooterSection(),
-    ],
-    ),
-    ),
+      //backgroundColor: Colors.white,
+      drawer: buildDrawer(context, width),
+      appBar: buildAppBar(context, width,0),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              controller: _scrollController,
+              child: Column(
+                children: [
+                  IntroSection(
+                    scrollController: _scrollController,
+                  ),
+                  AboutSection(),
+                  ProjectSection(),
+                  ServicesSection(),
+                  ContactCard(),
+                  FooterSection(),
+                ],
+              ),
+            ),
     ],
     ),
     ),

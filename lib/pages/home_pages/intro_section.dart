@@ -1,8 +1,14 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfoli/constants/constants.dart';
+import 'package:portfoli/constants/personal_info.dart';
+import 'package:portfoli/pages/contact_page/contact_page.dart';
 import 'package:portfoli/utils/responsive.dart';
+import 'package:portfoli/widgets/swipe_button.dart';
 import 'package:portfoli/widgets/custom_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class IntroSection extends StatefulWidget {
   final ScrollController scrollController;
@@ -15,11 +21,29 @@ class IntroSection extends StatefulWidget {
 }
 
 class _IntroSectionState extends State<IntroSection> {
+  bool showSwipeButton = true;
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    var theme = Theme.of(context);
+    PersonalInfo info = PersonalInfo();
     bool isMobile = width < 450;
+
+
+    void launchURL(url) async => await canLaunch(url)
+        ? await launch(url)
+        : throw 'Could not launch $url';
+
+    onSwipe() {
+
+      setState(() {
+        showSwipeButton = false;
+      });
+      widget.scrollController.animateTo(
+          height <400? height * 1.5*.88 :height * .94,
+          duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    }
 
     buildSocialButton() {
       socialButton(
@@ -33,7 +57,7 @@ class _IntroSectionState extends State<IntroSection> {
             onPressed: () => onTap(),
             icon: Icon(
               icon,
-              color: Constants.darkPrimaryColor,
+
             ),
             // tooltip: title,
           ),
@@ -47,13 +71,21 @@ class _IntroSectionState extends State<IntroSection> {
               height: height * .18,
             ),
             socialButton(
-                onTap: () {}, icon: FeatherIcons.github, title: "Github"),
+                onTap: () => launchURL(info.linkedin),
+                icon: FeatherIcons.linkedin,
+                title: "Linkedin"),
             socialButton(
-                onTap: () {}, icon: FeatherIcons.linkedin, title: "Linkedin"),
+                onTap: () => launchURL(info.github),
+                icon: FontAwesomeIcons.githubAlt,
+                title: "Github"),
             socialButton(
-                onTap: () {}, icon: FeatherIcons.twitter, title: "Twitter"),
+                onTap: () => launchURL(info.twitter),
+                icon: FeatherIcons.twitter,
+                title: "Twitter"),
             socialButton(
-                onTap: () {}, icon: Icons.email_outlined, title: "Email"),
+                onTap: () => launchURL("mailto:${info.email}"),
+                icon: Icons.email_outlined,
+                title: "Email"),
           ],
         ),
       );
@@ -61,7 +93,7 @@ class _IntroSectionState extends State<IntroSection> {
 
     buildButton() {
       return CustomButton(
-        onTap: () {},
+        onTap: () => Navigator.pushNamed(context, ContactPage.routeName),
         title: "Contact Me",
       );
     }
@@ -70,24 +102,49 @@ class _IntroSectionState extends State<IntroSection> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Hi, I am Akash Lilhare",
-            style:
-                TextStyle(fontSize: height * .04, fontWeight: FontWeight.bold),
+          RichText(
+            text:  TextSpan(children: [
+              TextSpan(
+                text: "Hi,\nI'am ",
+                style:theme.textTheme.headline1!.copyWith(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2,),
+              ),
+              WidgetSpan(
+                  child: SizedBox(
+                height: 28,
+              )),
+              TextSpan(
+                text: "Akash",
+                style:theme.textTheme.headline1!.copyWith(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,),
+              )
+            ]),
           ),
           const SizedBox(
-            height: 20,
+            height: 12,
           ),
-          Text(
-            "Full Stack Developer",
-            style: TextStyle(fontSize: height * .03, color: Colors.black87),
-          ),
+          DefaultTextStyle(
+              style:  theme.textTheme.headline1!.copyWith(
+                  fontSize: 20.0,
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.w500),
+              child: AnimatedTextKit(
+                repeatForever: true,
+                animatedTexts: [
+                  TyperAnimatedText('A Student._'),
+                  TyperAnimatedText('A Flutter Dev._'),
+                  TyperAnimatedText('A Web Dev._'),
+                ],
+              )),
           const SizedBox(
-            height: 20,
+            height: 40,
           ),
           Text(
             "I'm Durg base Flutter developer. I like to code things from scratch, and enjoy bringing ideas to life in the browser.",
-            style: TextStyle(fontSize: height * 0.02, color: Colors.grey),
+            style:CustomResponsiveBuilder(context: context).descriptionStyle(),
             textAlign: TextAlign.start,
           ),
         ],
@@ -95,120 +152,120 @@ class _IntroSectionState extends State<IntroSection> {
     }
 
     buildImage() {
-      return SizedBox(
+      return Container(
+        constraints:const BoxConstraints(maxHeight: 300) ,
         height: isMobile ? height * .3 : width * .3,
         width: isMobile ? height * .3 : width * .3,
-        child: Image.asset("assets/dev4.gif"),
+        child: Image.asset("assets/dev6.gif"),
       );
     }
 
-    buildSwipeButton() {
-      return Column(
-        children: [
-          Center(
-            child: SizedBox(
-                height: height * .1,
-                child: InkWell(
-                    onTap: () {
-                      widget.scrollController.animateTo(height,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.ease);
-                    },
-                    child: Image.asset("assets/swipe/swipe3.gif"))),
-          ),
-          SizedBox(
-            height: 10,
-          )
-        ],
-      );
-    }
+    return GestureDetector(
+      onPanStart: (details) {
+           onSwipe();
 
-    return Container(
+      },
+      child: Container(
         padding: EdgeInsets.symmetric(horizontal: width * .05),
-        height: height * .95,
+        height:height <400? height * 1.5*.88 : height *.88,
         child: width <= 725
             ? Padding(
-                padding:
-                    EdgeInsets.only(right: 0.02 * width, left: 0.0 * width),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                padding: EdgeInsets.only(right: 0.02 * width, left: 0.0 * width),
+                child: Stack(
                   children: [
-                    Spacer(
-                      flex: 1,
-                    ),
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        buildSocialButton(),
-                        SizedBox(
-                          width: width * 0.05,
+                        const Spacer(
+                          flex: 2,
                         ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              buildHeaderText(),
-                              Center(
-                                child: buildImage(),
+                        Row(
+                          children: [
+                            buildSocialButton(),
+                            SizedBox(
+                              width: width * 0.05,
+                            ),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  buildHeaderText(),
+                                  Center(
+                                    child: buildImage(),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        )
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: height * .05,
+                        ),
+                        buildButton(),
+                        Spacer(flex: showSwipeButton? 2 : 3,),
                       ],
                     ),
-                    SizedBox(
-                      height: height * .05,
-                    ),
-                    buildButton(),
-                    Spacer(),
-                    buildSwipeButton(),
+                    if (showSwipeButton)
+                      Column(
+                        children: [
+                          const Spacer(),
+                          SwipeButton(onPress:()=> onSwipe,),
+                        ],
+                      ),
                   ],
                 ),
               )
             : Padding(
-                padding: AppPadding(context: context).mainPadding(),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                padding: CustomResponsiveBuilder(context: context).mainPadding(),
+                child: Stack(
                   children: [
-                    SizedBox(
-                      height: height * .22,
-                    ),
-                    Row(
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        buildSocialButton(),
-                        SizedBox(
-                          width: width * .05,
-                        ),
-                        Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Spacer(),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            buildHeaderText(),
+                            buildSocialButton(),
                             SizedBox(
-                              height: height * .05,
+                              width: width * .05,
                             ),
-                            buildButton(),
+                            Expanded(
+                                child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                buildHeaderText(),
+                                SizedBox(
+                                  height: height * .05,
+                                ),
+                                buildButton(),
+                              ],
+                            )),
+                            SizedBox(
+                              width: width * .05,
+                            ),
+                            Expanded(child: buildImage()),
                           ],
-                        )),
-                        SizedBox(
-                          width: width * .05,
                         ),
-                        Expanded(
-                          child: buildImage(),
-                        ),
+                        Spacer()
+
+
                       ],
                     ),
-                    SizedBox(
-                      height: height * .05,
-                    ),
-                    Spacer(),
-                    buildSwipeButton(),
-                    Spacer(),
+                    if (showSwipeButton)
+                      Column(
+                        children: [
+                          const Spacer(),
+                          SwipeButton(onPress:()=> onSwipe,),
+                        ],
+                      ),
                   ],
                 ),
-              ));
+              ),
+      ),
+    );
   }
 }

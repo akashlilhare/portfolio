@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:portfoli/constants/app_theme.dart';
 import 'package:portfoli/constants/constants.dart';
+import 'package:provider/provider.dart';
 
 class CustomButton extends StatelessWidget {
   final Function onTap;
@@ -9,9 +11,11 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDark = Provider.of<ThemeProvider>(context).isDarkMode;
+    var theme = Theme.of(context);
     return    ElevatedButton(
       style: ElevatedButton.styleFrom(
-primary: Constants.darkPrimaryColor,
+primary: isDark ? AppTheme.darkButtonColor : AppTheme.lightButtonColor,
         elevation: 3,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0)),
@@ -20,7 +24,7 @@ primary: Constants.darkPrimaryColor,
       ),
       onPressed: () {onTap();},
       child:
-          Text(title),
+          Text(title,style: TextStyle(color: Colors.white),),
 
 
     );

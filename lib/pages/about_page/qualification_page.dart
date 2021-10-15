@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/database/qualification.dart';
@@ -6,65 +7,103 @@ import 'package:portfoli/widgets/seaction_sub_header.dart';
 import 'package:timelines/timelines.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-class AboutQualification extends StatelessWidget {
+class AboutQualification extends StatefulWidget {
   const AboutQualification({Key? key}) : super(key: key);
 
   @override
+  State<AboutQualification> createState() => _AboutQualificationState();
+}
+
+class _AboutQualificationState extends State<AboutQualification> {
+  int switchIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
-  double  getPadding(){
-      if(width < 650){
-        return width* .03;
-      }else{
-        return width* .05;
+    double getPadding() {
+      if (width < 650) {
+        return width * .03;
+      } else {
+        return width * .05;
       }
     }
 
+    buildSwitchButton() {
+      return Center(
+        child: ToggleSwitch(
+          cornerRadius: 10.0,
+          initialLabelIndex: switchIndex,
+          minHeight: 42,
+          minWidth: 125,
+          activeFgColor:theme.textTheme.headline3!.color,
+          inactiveBgColor: theme.colorScheme.secondary,
+          inactiveFgColor: theme.textTheme.headline2!.color,
+          activeBgColor: [
+            theme.colorScheme.primaryVariant,
+            theme.colorScheme.primaryVariant,
+          ],
+
+          totalSwitches: 2,
+          radiusStyle: true,
+          labels: const [
+            'Education',
+            'Work Experience',
+          ],
+          onToggle: (index) {
+            setState(() {
+              switchIndex = index;
+            });
+          },
+        ),
+      );
+    }
+
     buildContent(int index) {
+      List<Qualification> items = switchIndex == 0 ? educationList : workList;
       return Container(
         padding: EdgeInsets.only(
-            left: index % 2 == 0 ? getPadding()  : 0,
+            left: index % 2 == 0 ? getPadding() : 0,
             right: index % 2 != 0 ? getPadding() : 0,
-            bottom: height * .1),
+            top: height * .05),
         child: Column(
-          crossAxisAlignment:  CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              qualificationList[index].title,
-              style: TextStyle(
-                  fontSize: height * .025, fontWeight: FontWeight.w700),
+              items[index].title,
+              style: theme.textTheme.headline1!.copyWith(
+                  fontSize: 20, fontWeight: FontWeight.w500),
             ),
             SizedBox(
-              height: height * .01,
+              height: 12,
             ),
             Text(
-              qualificationList[index].subTitle,
-              style: const TextStyle(color: Colors.blueGrey),
+              items[index].subTitle,
+              style: theme.textTheme.headline2!.copyWith(fontSize: 15,fontWeight: FontWeight.w400),
             ),
             SizedBox(
-              height: height * .03,
+              height: 12,
             ),
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               alignment:  index % 2 == 0
-            ? WrapAlignment.end
-                : WrapAlignment.end,
+                  ? WrapAlignment.end
+                  : WrapAlignment.end,
               children: [
-                const Icon(
+                 Icon(
                   Icons.calendar_today,
-                  color: Colors.blueGrey,
+                  color:theme.textTheme.headline2!.color
                 ),
                 SizedBox(width: width * .01),
                 Text(
-                  qualificationList[index].date[0],
-                  style: const TextStyle(color: Colors.blueGrey),
+                  items[index].date[0],
+                    style: theme.textTheme.headline2!.copyWith(fontSize: 15),
                 ),
                 Text(
-                  qualificationList[index].date[1],
-                  style: const TextStyle(color: Colors.blueGrey),
+                  items[index].date[1],
+                  style: theme.textTheme.headline2!.copyWith(fontSize: 15),
                 )
               ],
             )
@@ -73,59 +112,31 @@ class AboutQualification extends StatelessWidget {
       );
     }
 
-    buildcertificate() {
-      return
-        Column(
-            children:
-            qualificationList
-                .map((certificate) => Container(
-              margin: EdgeInsets.symmetric(vertical: 8),
-              decoration: BoxDecoration(border:Border.all(color: Constants.lightPrimaryColor), borderRadius: BorderRadius.all(Radius.circular(16)),),
-              child: ExpansionTile(
-                expandedAlignment: Alignment.bottomCenter,
-
-
-                expandedCrossAxisAlignment:CrossAxisAlignment.end ,
-
-                title: Text(
-                  certificate.title,
-                ),
-
-                children: [Text(certificate.subTitle)],
-              ),
-            ))
-                .toList());
+    buildTimeLine() {
+      return FixedTimeline.tileBuilder(
+        builder: TimelineTileBuilder.connected(
+          indicatorPositionBuilder: (context, index) => 0.3,
+          connectionDirection: ConnectionDirection.before,
+          contentsAlign: ContentsAlign.alternating,
+          contentsBuilder: (context, index) => buildContent(index),
+          connectorBuilder: (_, index, __) =>  SolidLineConnector(color: theme.colorScheme.primaryVariant,),
+          indicatorBuilder: (_, index) => Indicator.dot(color: theme.colorScheme.primaryVariant,),
+          itemCount: switchIndex == 0 ? educationList.length : workList.length,
+        ),
+      );
     }
 
     return Container(
-      padding: AppPadding(context: context).mainPadding(),
+      padding: CustomResponsiveBuilder(context: context).mainPadding(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: height*.05,),
+          SizedBox(
+            height: height * .05,
+          ),
           const SectionSubHeader(title: "Qualification"),
-          buildcertificate()
-          // Center(
-          //   child: ToggleSwitch(
-          //     initialLabelIndex: 0,
-          //     totalSwitches: 3,
-          //     labels: ['America', 'Canada', 'Mexico'],
-          //     onToggle: (index) {
-          //       print('switched to: $index');
-          //     },
-          //   ),
-          // ),
-          // FixedTimeline.tileBuilder(
-          //   builder: TimelineTileBuilder.connected(
-          //     indicatorPositionBuilder: (context, index) => 0.3,
-          //     connectionDirection: ConnectionDirection.before,
-          //     contentsAlign: ContentsAlign.alternating,
-          //     contentsBuilder: (context, index) => buildContent(index),
-          //     connectorBuilder: (_, index, __) => const SolidLineConnector(),
-          //     indicatorBuilder: (_, index) => Indicator.dot(),
-          //     itemCount: qualificationList.length,
-          //   ),
-          // ),
+          buildSwitchButton(),
+          buildTimeLine()
         ],
       ),
     );

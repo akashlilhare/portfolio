@@ -7,11 +7,11 @@ class Certificate {
 
 List<Certificate> certificateList = [
   Certificate(
-      title: "Data Structure And Algorithm",
-      university: "University of san diago"),
-  Certificate(title: "100 days of python", university: "Udemy"),
+      title: "Data Structures",
+      university: "University of California San Diego HSE University"),
+  Certificate(title: "Algorithmic Toolbox", university: "University of California San Diego HSE University"),
   Certificate(
-      title: "Machine learning master class",
-      university: "University of san diago"),
-  Certificate(title: "Programing with CPP", university: "Udemy"),
+      title: "Python for Data Science & Machine Learning from A-Z",
+      university: "Udemy"),
+  Certificate(title: "The Complete Flutter and Dart Guid", university: "Udemy"),
 ];

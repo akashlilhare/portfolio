@@ -8,12 +8,14 @@ class SectionSubHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    var theme = Theme.of(context);
     return Padding(
       padding: EdgeInsets.only(top: height * 0.02, bottom: height * 0.04),
       child: Text(
         title,
-        style: TextStyle(
-            fontSize: height * .035,
+        style: theme.textTheme.headline1!.copyWith(
+            fontSize:width >750?36 : 28,
             fontWeight: FontWeight.w600,
             letterSpacing: 1.5),
       ),

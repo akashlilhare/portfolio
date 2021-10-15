@@ -12,6 +12,7 @@ class ServicesSection extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    var theme = Theme.of(context);
 
     List<Service> services = [
       Service(
@@ -27,7 +28,7 @@ class ServicesSection extends StatelessWidget {
       Service(
           title: "Web Development",
           subTitle:
-              "I also develop the websites. I create high performance website with blazing fast speed.",
+              "I also develop websites. I create high performance website with blazing fast speed.",
           icon: FontAwesomeIcons.code),
     ];
 
@@ -38,7 +39,7 @@ class ServicesSection extends StatelessWidget {
           padding: EdgeInsets.all(width * .04),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(16)),
-              color: Colors.blue.shade100),
+              color: theme.colorScheme.secondary),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -46,21 +47,21 @@ class ServicesSection extends StatelessWidget {
               SizedBox(height: height * .01),
               Icon(
                 service.icon,
-                color: Constants.darkPrimaryColor,
+                color: theme.textTheme.headline1!.color,
               ),
               SizedBox(height: height * .02),
               Text(
                 service.title,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600, fontSize:20),
-              ),
+                style: theme.textTheme.headline1!.copyWith(
+                    fontWeight: FontWeight.w600, fontSize:20
+              ),),
               SizedBox(height: height * .01),
 
               Text(
                 service.subTitle,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black54,fontSize: 15,letterSpacing: 1.5),
+                style: theme.textTheme.headline2!.copyWith(fontSize: 15,letterSpacing: 1.5),
               ),
               SizedBox(height: height * .01),
             ],
@@ -81,7 +82,7 @@ class ServicesSection extends StatelessWidget {
       children: [
         SectionHeader(title: "Services", subTitle: "What i will do for you"),
         Container(
-            padding: AppPadding(context: context).mainPadding(),
+            padding: CustomResponsiveBuilder(context: context).mainPadding(),
             child: width >= 750
                 ? Row(children: buildServices())
                 : Column(

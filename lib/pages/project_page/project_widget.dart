@@ -75,7 +75,9 @@ class _ProjectWidgetState extends State<ProjectWidget> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    AppPadding appPadding = AppPadding(context: context);
+    var theme = Theme.of(context);
+    CustomResponsiveBuilder appPadding =
+        CustomResponsiveBuilder(context: context);
     double radius = 24;
     int getCrossAxisCount() {
       if (width >= 950) {
@@ -87,49 +89,25 @@ class _ProjectWidgetState extends State<ProjectWidget> {
       }
     }
 
-    buildTag() {
-      return Wrap(
-          children: projectTags
-              .map((tag) => Padding(
-                    padding: const EdgeInsets.only(right: 18),
-                    child: FilterChip(
-                        showCheckmark: false,
-                        selected: tag.isSelected,
-                        selectedColor: Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: tag.isSelected
-                                    ? Constants.darkPrimaryColor
-                                    : Colors.blue.shade50),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(4))),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 4, vertical: 8),
-                        backgroundColor: Colors.transparent,
-                        label: Text(
-                          tag.title,
-                          style: TextStyle(
-                              color: tag.isSelected
-                                  ? Constants.darkPrimaryColor
-                                  : Colors.black54),
-                        ),
-                        onSelected: (val) {
-                          searchByTag(tag.title);
-                          setState(() => tag.isSelected = val);
-                        }),
-                  ))
-              .toList());
-    }
-
     buildSearchBox() {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
+            //  color: Colors.blue.shade50,
+
             borderRadius: BorderRadius.all(Radius.circular(12)),
-            border: Border.all(color: Constants.darkPrimaryColor)),
+            border: Border.all(color: theme.colorScheme.secondaryVariant, width: 1.5)),
         child: TextField(
           controller: _controller,
-          decoration: InputDecoration(border: InputBorder.none),
+          cursorColor: theme.colorScheme.secondaryVariant,
+          decoration:  InputDecoration(
+
+              border: InputBorder.none,
+              hintText: "Project Name",
+              icon: Icon(
+                Icons.search,
+                color:theme.colorScheme.secondaryVariant,
+              )),
           onChanged: (input) => searchProject(input),
         ),
       );
@@ -147,13 +125,20 @@ class _ProjectWidgetState extends State<ProjectWidget> {
             mainAxisSpacing: 20),
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            onTap: () => showDialog(
-                context: context,
-                builder: (context) => ProjectDetailBox(
-                      index: index,
-                    )),
+            onTap: () {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              if (!currentFocus.hasPrimaryFocus ) {
+                currentFocus.focusedChild!.unfocus();
+              }else {
+                showDialog(
+                    context: context,
+                    builder: (context) =>
+                        ProjectDetailBox(
+                          index: projects[index].index,
+                        ));
+              }    },
             child: Card(
-              color: Constants.darkPrimaryColor,
+              color: theme.primaryColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(radius))),
               child: Column(
@@ -179,24 +164,22 @@ class _ProjectWidgetState extends State<ProjectWidget> {
                       padding: EdgeInsets.symmetric(horizontal: width * .03),
                       child: Column(
                         children: [
+                          Spacer(),
                           Text(
                             projects[index].title,
-                            style: TextStyle(
+                            style: theme.textTheme.headline3!.copyWith(
                                 fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                                fontSize: height * 0.025),
+                                fontSize: 18),
                           ),
-                          SizedBox(
-                            height: height * .02,
-                          ),
+                          Spacer(),
                           Text(
                             projects[index].subtitle,
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(color: Colors.white),
+                            style: theme.textTheme.headline4!.copyWith(fontSize: width>725?16:14),
                           ),
-                          SizedBox(
-                            height: height * .01,
+                          Spacer(
+                            flex: 2,
                           ),
                         ],
                       ),
@@ -210,25 +193,14 @@ class _ProjectWidgetState extends State<ProjectWidget> {
       );
     }
 
-    buildTitle(String title) {
-      return Text(
-        title,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-      );
-    }
+
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 18),
+      padding: CustomResponsiveBuilder(context: context).mainPadding(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildTitle("Search Project"),
-          SizedBox(height: 8,),
           buildSearchBox(),
-          SizedBox(height: 16,),
-          buildTitle("Project Type"),
-          SizedBox(height: 2,),
-          buildTag(),
           SizedBox(
             height: height * .03,
           ),
