@@ -222,13 +222,9 @@ class _ProjectSectionState extends State<ProjectSection> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(16))),
           constraints: BoxConstraints(maxWidth: 600, maxHeight: height * .5),
-          child: Expanded(
-            child: Container(
-              child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                  child: Image.asset(imgSrc)),
-            ),
-          ),
+          child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              child: Image.asset(imgSrc)),
         );
       }
 
@@ -294,22 +290,21 @@ class _ProjectSectionState extends State<ProjectSection> {
               width: width * .04,
             ),
             Expanded(
-              child: PageView.builder(
+              child:
+              PageView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: projectList.length,
                   controller: _controller,
                   itemBuilder: (context, index) {
-                    return Container(
-                      child: Row(
-                        children: [
-                          buildImage(projectList[index].imageSrc),
-                          SizedBox(
-                            width: width * .05,
-                          ),
-                          buildContent(projectList[index].title,
-                              projectList[index].subtitle, index),
-                        ],
-                      ),
+                    return Row(
+                      children: [
+                        buildImage(projectList[index].imageSrc),
+                        SizedBox(
+                          width: width * .05,
+                        ),
+                        buildContent(projectList[index].title,
+                            projectList[index].subtitle, index),
+                      ],
                     );
                   }),
             ),
@@ -340,11 +335,10 @@ class _ProjectSectionState extends State<ProjectSection> {
                     ),
                   ],
                 )
-              : Column(
-                  children: [
-                    buildHorizontalCard(),
-                  ],
-                ),
+              : buildHorizontalCard(),
+          SizedBox(
+            height: height * .01,
+          ),
           buildButton(),
           SizedBox(
             height: height * .05,
