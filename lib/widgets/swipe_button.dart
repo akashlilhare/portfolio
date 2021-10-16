@@ -1,6 +1,5 @@
 import 'package:animator/animator.dart';
 import 'package:flutter/material.dart';
-import 'package:portfoli/constants/app_theme.dart';
 
 class SwipeButton extends StatelessWidget {
   final Function onPress ;
@@ -28,10 +27,10 @@ class SwipeButton extends StatelessWidget {
                     BoxShadow(
                         color: Colors.black.withOpacity(.2),
                         blurRadius: 30,
-                        offset: Offset(5, 5))
+                        offset: const Offset(5, 5))
                   ]),
               child:
-              Icon(Icons.keyboard_arrow_down),
+              const Icon(Icons.keyboard_arrow_down),
             )
           ),
         ),

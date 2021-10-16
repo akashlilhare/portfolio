@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfoli/pages/footer_section.dart';
 import 'package:portfoli/pages/project_page/project_widget.dart';
-import 'package:portfoli/widgets/secation_header.dart';
+import 'package:portfoli/widgets/section_header.dart';
 
 import '../header_section.dart';
 class ProjectPage extends StatelessWidget {
@@ -15,8 +15,6 @@ class ProjectPage extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-
-      
       drawer:  buildDrawer(context, width),
       appBar: buildAppBar(context, width,2),
       body: GestureDetector(

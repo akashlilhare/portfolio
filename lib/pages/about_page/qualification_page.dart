@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/database/qualification.dart';
 import 'package:portfoli/utils/responsive.dart';
-import 'package:portfoli/widgets/seaction_sub_header.dart';
+import 'package:portfoli/widgets/section_sub_header.dart';
 import 'package:timelines/timelines.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
@@ -76,14 +75,14 @@ class _AboutQualificationState extends State<AboutQualification> {
               style: theme.textTheme.headline1!.copyWith(
                   fontSize: 20, fontWeight: FontWeight.w500),
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             Text(
               items[index].subTitle,
               style: theme.textTheme.headline2!.copyWith(fontSize: 15,fontWeight: FontWeight.w400),
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             Wrap(

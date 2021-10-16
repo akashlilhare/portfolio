@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'constants.dart';
 
 class ThemeProvider extends ChangeNotifier {
   final String _themeKey = "saved-theme";
@@ -34,7 +33,7 @@ class AppTheme {
   // Light theme color
   static const lightBackgroundColor = Color(0xffffffff);
   static const lightPrimaryColor = Color(0xff4937CE);
-  static const lightSecondaryColor = Colors.lightBlueAccent;
+  static  const lightSecondaryColor = Color(0xffE4EEF8);
   static const lightHeadline1Color = Color(0xff1D1D1F);
   static const lightHeadline2Color = Color(0xff28282A);
   static const lightHeadline3Color = Color(0xffF5F5F7);

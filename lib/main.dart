@@ -37,7 +37,6 @@ class MyApp extends StatelessWidget {
                   }else{
                     themeProvider.isDarkMode = snapShort.data as ThemeMode;
                     ThemeProvider().themeMode =snapShort.data as ThemeMode;
-                    print(snapShort.data.toString() + "data");
                     return
                       MaterialApp(
                           themeMode: snapShort.data as ThemeMode,
@@ -47,6 +46,7 @@ class MyApp extends StatelessWidget {
                           darkTheme: AppTheme().darkThemeData,
                           home: const MainPage(),
                           routes: {
+                          //  MainPage.routeName:(ctx)=>const MainPage(),
                             ProjectPage.routeName: (ctx) =>const ProjectPage(),
                             AboutPage.routeName: (ctx) =>const AboutPage(),
                             ContactPage.routeName: (ctx) =>const ContactPage(),

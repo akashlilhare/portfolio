@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/database/certificate_database.dart';
 import 'package:portfoli/utils/responsive.dart';
-import 'package:portfoli/widgets/seaction_sub_header.dart';
+import 'package:portfoli/widgets/section_sub_header.dart';
 
 class CertificatePage extends StatelessWidget {
   const CertificatePage({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class CertificatePage extends StatelessWidget {
 
     buildCourseWork() {
       return GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: certificateList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -59,7 +58,7 @@ class CertificatePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Row(

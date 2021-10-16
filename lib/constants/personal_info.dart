@@ -1,7 +1,7 @@
 
 class PersonalInfo{
   String resume = "https://drive.google.com/file/d/1dbaAqRGBACoHu6RYThPusmSbKdG9CkxL/view?usp=sharing";
-  String phone = "9669395879";
+  String phone = "9617890584";
   String github = "https://github.com/akashlilhare";
   String twitter = "https://twitter.com/akash__lilhare";
   String linkedin = "https://www.linkedin.com/in/akash-lilhare-739a80192";

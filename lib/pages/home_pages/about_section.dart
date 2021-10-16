@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/constants/personal_info.dart';
 import 'package:portfoli/pages/about_page/about_page.dart';
 import 'package:portfoli/utils/responsive.dart';
 import 'package:portfoli/widgets/custom_button.dart';
-import 'package:portfoli/widgets/secation_header.dart';
+import 'package:portfoli/widgets/section_header.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutSection extends StatelessWidget {
@@ -18,7 +17,7 @@ class AboutSection extends StatelessWidget {
     bool isMobile = width < 500;
 
     buildImage() {
-      return Container(
+      return SizedBox(
         height: isMobile ? height * .28 : width * .30,
         width: isMobile ? height * .28 : width * .30,
         child: Image.asset("assets/dev3.gif"),
@@ -35,23 +34,21 @@ class AboutSection extends StatelessWidget {
 
       buildNumberCard() {
         buildCard(String num, String title, String subtitle) {
-          return Container(
-            child: Column(
-              children: [
-                Text(
-                  num,
-                  style: theme.textTheme.headline1!.copyWith(fontWeight: FontWeight.w700, fontSize: 22),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  title,
-                  style: theme.textTheme.headline2!.copyWith(fontWeight: FontWeight.w500, fontSize: 15),
-                ),
-                Text(subtitle,style:theme.textTheme.headline2!.copyWith(fontWeight: FontWeight.w500,fontSize: 16),)
-              ],
-            ),
+          return Column(
+            children: [
+              Text(
+                num,
+                style: theme.textTheme.headline1!.copyWith(fontWeight: FontWeight.w700, fontSize: 22),
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              Text(
+                title,
+                style: theme.textTheme.headline2!.copyWith(fontWeight: FontWeight.w500, fontSize: 15),
+              ),
+              Text(subtitle,style:theme.textTheme.headline2!.copyWith(fontWeight: FontWeight.w500,fontSize: 16),)
+            ],
           );
         }
 
@@ -118,16 +115,15 @@ class AboutSection extends StatelessWidget {
             const SectionHeader(
                 title: "About Me", subTitle: "Let me introduce myself"),
             width > 725
-                ? Container(
-                    child: Row(
-                    children: [
-                      buildImage(),
-                      SizedBox(
-                        width: width * .1,
-                      ),
-                      Expanded(child: buildCard()),
-                    ],
-                  ))
+                ? Row(
+                children: [
+                  buildImage(),
+                  SizedBox(
+                    width: width * .1,
+                  ),
+                  Expanded(child: buildCard()),
+                ],
+                  )
                 : Column(
                     children: [
                       buildImage(),

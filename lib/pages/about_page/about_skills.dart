@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:portfoli/constants/app_theme.dart';
-import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/database/skills_database.dart';
 import 'package:portfoli/utils/responsive.dart';
-import 'package:portfoli/widgets/seaction_sub_header.dart';
+import 'package:portfoli/widgets/section_sub_header.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
@@ -59,17 +58,18 @@ class _AboutSkillsPageState extends State<AboutSkillsPage>
               children: [
                 Row(
                   children: [
-                    Text(
-                     "  "+ skill.title,
-                      style: theme.textTheme.headline1!.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
-                    ),
-                    Spacer(),
-                    Text(skill.rating.toString() + " % "),
-                  ],
+                            Text(
+                              "  " + skill.title,
+                              style: theme.textTheme.headline1!.copyWith(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                            ),
+                            const Spacer(),
+                            Text(skill.rating.toString() + " % "),
+                          ],
                 ),
-                SizedBox(
-                  height: 4,
-                ),
+                const SizedBox(
+                          height: 4,
+                        ),
                 LinearPercentIndicator(
                   animation: true,
                   animateFromLastPercent: true,
@@ -78,7 +78,7 @@ class _AboutSkillsPageState extends State<AboutSkillsPage>
                   backgroundColor: isDark?theme.colorScheme.secondaryVariant:theme.colorScheme.secondary,
                   progressColor:  theme.colorScheme.primaryVariant,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 24,
                 ),
               ],

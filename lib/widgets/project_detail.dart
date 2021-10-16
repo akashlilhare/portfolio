@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:portfoli/constants/constants.dart';
+import 'package:portfoli/constants/app_theme.dart';
 import 'package:portfoli/database/project_database.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectDetailBox extends StatelessWidget {
@@ -15,6 +16,7 @@ class ProjectDetailBox extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    bool isDark = Provider.of<ThemeProvider>(context).isDarkMode;
     var theme = Theme.of(context);
 
     buildFeatures() {
@@ -48,8 +50,8 @@ class ProjectDetailBox extends StatelessWidget {
               .map((tech) => Tooltip(
                     message: tech.title,
                     child: Container(
-                      padding: EdgeInsets.all(8),
-                      margin: EdgeInsets.only(right: 12, bottom: 12),
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.only(right: 12, bottom: 12),
                       decoration: BoxDecoration(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8)),
@@ -70,47 +72,47 @@ class ProjectDetailBox extends StatelessWidget {
       var currItem = projectList[index].projectSrc;
       var btnStyle = ElevatedButton.styleFrom(
           primary: theme.colorScheme.primaryVariant,
-          minimumSize: Size(120, 45),
-          shape: RoundedRectangleBorder(
+          minimumSize: const Size(120, 45),
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(8))));
+
+   Color? iconColor = theme.textTheme.headline3!.color;
+   TextStyle   buttonTextStyle =  theme.textTheme.headline3!.copyWith(fontWeight: FontWeight.w500,fontSize: 14);
+
 
       if (currItem[0] != "") {
         btnList.add(ElevatedButton.icon(
             style: btnStyle,
             onPressed: () =>launchURL(currItem[0]),
-            label: Text("Github",style: theme.textTheme.headline1!.copyWith(fontWeight: FontWeight.w500,fontSize: 14)),
+            label: Text("Github",style: buttonTextStyle),
             icon: Icon(
               FontAwesomeIcons.github,
-              color: theme.textTheme.headline1!.color,
+              color: iconColor,
             )));
       }
       if (currItem[1] != "") {
         btnList.add(ElevatedButton.icon(
             style: btnStyle,
             onPressed: () =>launchURL(currItem[1]),
-            label: Text("PlayStore"),
+            label:  Text("PlayStore",style: buttonTextStyle),
             icon: Icon(
               FeatherIcons.play,
+              color: iconColor,
             )));
       }
       if (currItem[2] != "") {
         btnList.add(ElevatedButton.icon(
             style: btnStyle,
             onPressed: () =>launchURL(currItem[2]),
-            label: Text("WebSite"),
+            label: Text("WebSite",style: buttonTextStyle),
             icon: Icon(
-              FeatherIcons.globe,
+              FeatherIcons.globe,  color: iconColor,
             )));
       }
 
       return Row(
-        // direction: Axis.horizontal,
-        // alignment: WrapAlignment.end,
-        // runAlignment: WrapAlignment.end,
-        //
-        // crossAxisAlignment: WrapCrossAlignment.end,
         children: [
-          Spacer(),
+          const Spacer(),
           ...btnList
               .map((btn) => Padding(
                     padding: EdgeInsets.only(
@@ -125,13 +127,13 @@ class ProjectDetailBox extends StatelessWidget {
     return Padding(
       padding:  EdgeInsets.symmetric(horizontal:width<500? 0: width< 725 ? width * .05 :width<1000 ? width*.1 : width*.15),
       child: Dialog(
-        backgroundColor: theme.colorScheme.primary,
+        backgroundColor:isDark? theme.scaffoldBackgroundColor: theme.primaryColor,
 
 
-        shape: RoundedRectangleBorder(
+        shape:const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(18))),
         child: Padding(
-          padding: EdgeInsets.all(width * .05 ),
+          padding: EdgeInsets.all( width<725? width * .05 : width * .03),
           child: ListView(
           shrinkWrap: true,
             children: [
@@ -141,7 +143,7 @@ class ProjectDetailBox extends StatelessWidget {
                     projectList[index].title,
                     style: theme.textTheme.headline1!.copyWith(fontWeight: FontWeight.w700, fontSize: 18),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   SizedBox(
                     child: TextButton(
                       onPressed: () {
@@ -149,7 +151,7 @@ class ProjectDetailBox extends StatelessWidget {
                       },
                       style: TextButton.styleFrom(
                           primary:theme.colorScheme.primaryVariant),
-                      child: Icon(Icons.close),
+                      child: const Icon(Icons.close),
                     ),
                     width: 40,
                     height: 40,

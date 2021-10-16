@@ -1,11 +1,5 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:portfoli/constants/app_theme.dart';
-import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/constants/personal_info.dart';
 import 'package:portfoli/models/important_link_model.dart';
 import 'package:portfoli/pages/about_page/about_page.dart';
@@ -52,8 +46,7 @@ List<AppBarLink> headerTitle = [
 
 
 buildDrawer(BuildContext context, double width) {
-  double height= MediaQuery.of(context).size.height;
-  var theme = Theme.of(context);
+
 
   void launchURL(url) async =>
       await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
@@ -89,14 +82,14 @@ buildDrawer(BuildContext context, double width) {
 
 
                   ]),
-                Positioned(
+                const Positioned(
                   right: 18,
                   top: 20,child: SafeArea(
                     child: ThemeButton()),
                 ),
                 Column(
                   children: [
-                    Spacer(),
+                    const    Spacer(),
                     Container(
                       height: 85,
                       width: double.infinity,
@@ -106,7 +99,7 @@ buildDrawer(BuildContext context, double width) {
                         title: "Download Resume",
                       ),
                     ),
-                    SizedBox(height: 10,)
+                    const SizedBox(height: 10,)
                   ],
                 )
               ],
@@ -127,7 +120,7 @@ buildAppBar(BuildContext context, double width, int idx) {
 
     elevation: 1,
     title: Padding(
-      padding:width >= 750 ? CustomResponsiveBuilder(context: context).leftPadding():EdgeInsets.all(0),
+      padding:width >= 750 ? CustomResponsiveBuilder(context: context).leftPadding():const EdgeInsets.all(0),
       child: Text(
         "Akash",style: theme.textTheme.headline1!.copyWith(fontSize: 18,fontWeight: FontWeight.bold),
       ),
@@ -144,7 +137,7 @@ buildAppBar(BuildContext context, double width, int idx) {
                           child: TextButton(
 
                             child: Container(
-                              padding: EdgeInsets.all(
+                              padding: const EdgeInsets.all(
                                  8, // Space between underline and text
                               ),
                               decoration: BoxDecoration(
@@ -171,8 +164,8 @@ buildAppBar(BuildContext context, double width, int idx) {
                           ),
                         ))
                     .toList(),
-                SizedBox(width: 18,),
-                ThemeButton()
+                const SizedBox(width: 18,),
+                const ThemeButton()
               ]
               ),
             )

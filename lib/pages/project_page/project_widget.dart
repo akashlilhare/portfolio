@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/database/project_database.dart';
 import 'package:portfoli/utils/responsive.dart';
 import 'package:portfoli/widgets/project_detail.dart';
@@ -76,8 +74,6 @@ class _ProjectWidgetState extends State<ProjectWidget> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     var theme = Theme.of(context);
-    CustomResponsiveBuilder appPadding =
-        CustomResponsiveBuilder(context: context);
     double radius = 24;
     int getCrossAxisCount() {
       if (width >= 950) {
@@ -90,32 +86,34 @@ class _ProjectWidgetState extends State<ProjectWidget> {
     }
 
     buildSearchBox() {
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: 12),
-        decoration: BoxDecoration(
-            //  color: Colors.blue.shade50,
+      return Padding(
+        padding:  EdgeInsets.symmetric(horizontal:width>950 ?width*.2: 8.0),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+              //  color: Colors.blue.shade50,
+              borderRadius:const BorderRadius.all(Radius.circular(12)),
+              border: Border.all(color: theme.colorScheme.secondaryVariant, width: 1.5)),
+          child: TextField(
+            controller: _controller,
+            cursorColor: theme.colorScheme.secondaryVariant,
+            decoration:  InputDecoration(
 
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-            border: Border.all(color: theme.colorScheme.secondaryVariant, width: 1.5)),
-        child: TextField(
-          controller: _controller,
-          cursorColor: theme.colorScheme.secondaryVariant,
-          decoration:  InputDecoration(
-
-              border: InputBorder.none,
-              hintText: "Project Name",
-              icon: Icon(
-                Icons.search,
-                color:theme.colorScheme.secondaryVariant,
-              )),
-          onChanged: (input) => searchProject(input),
+                border: InputBorder.none,
+                hintText: "Project Name",
+                icon: Icon(
+                  Icons.search,
+                  color:theme.colorScheme.secondaryVariant,
+                )),
+            onChanged: (input) => searchProject(input),
+          ),
         ),
       );
     }
 
     buildProjectCard() {
       return GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: projects.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -164,21 +162,21 @@ class _ProjectWidgetState extends State<ProjectWidget> {
                       padding: EdgeInsets.symmetric(horizontal: width * .03),
                       child: Column(
                         children: [
-                          Spacer(),
+                          const Spacer(),
                           Text(
                             projects[index].title,
                             style: theme.textTheme.headline3!.copyWith(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 18),
                           ),
-                          Spacer(),
+                          const    Spacer(),
                           Text(
                             projects[index].subtitle,
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                             style: theme.textTheme.headline4!.copyWith(fontSize: width>725?16:14),
                           ),
-                          Spacer(
+                          const Spacer(
                             flex: 2,
                           ),
                         ],
@@ -198,7 +196,7 @@ class _ProjectWidgetState extends State<ProjectWidget> {
     return Padding(
       padding: CustomResponsiveBuilder(context: context).mainPadding(),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           buildSearchBox(),
           SizedBox(

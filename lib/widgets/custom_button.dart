@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portfoli/constants/app_theme.dart';
-import 'package:portfoli/constants/constants.dart';
 import 'package:provider/provider.dart';
 
 class CustomButton extends StatelessWidget {
@@ -12,7 +11,6 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isDark = Provider.of<ThemeProvider>(context).isDarkMode;
-    var theme = Theme.of(context);
     return    ElevatedButton(
       style: ElevatedButton.styleFrom(
 primary: isDark ? AppTheme.darkButtonColor : AppTheme.lightButtonColor,
@@ -24,7 +22,7 @@ primary: isDark ? AppTheme.darkButtonColor : AppTheme.lightButtonColor,
       ),
       onPressed: () {onTap();},
       child:
-          Text(title,style: TextStyle(color: Colors.white),),
+          Text(title,style: const TextStyle(color: Colors.white),),
 
 
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/pages/about_page/about_skills.dart';
 import 'package:portfoli/pages/about_page/qualification_page.dart';
 import 'package:portfoli/widgets/contact_card.dart';

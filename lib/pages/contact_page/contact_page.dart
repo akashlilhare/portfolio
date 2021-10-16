@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfoli/pages/footer_section.dart';
 import 'package:portfoli/utils/responsive.dart';
-import 'package:portfoli/widgets/secation_header.dart';
+import 'package:portfoli/widgets/section_header.dart';
 
 import '../header_section.dart';
 import 'contact_card.dart';
@@ -32,13 +32,12 @@ class ContactPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   const Expanded(child: ContactSection()),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * .06,vertical: height*.1),
-                    child:
-                        Expanded(
-                          child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: width * .06,vertical: height*.1),
+
+
+                      child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.blue.shade100,
                                 borderRadius:
@@ -48,18 +47,17 @@ class ContactPage extends StatelessWidget {
 
                     ),
                         ),
-                  ),
 
                 const  Expanded(child: ContactForm())
                 ],
               )
                   : Column(
-                children: [
-                 const ContactSection(),
+                children: const[
+                  ContactSection(),
                   SizedBox(
                     height: 40
                   ),
-                  const ContactForm()
+                   ContactForm()
                 ],
               ),
               SizedBox(
@@ -82,9 +80,9 @@ class ContactPage extends StatelessWidget {
               title: "Contact Me",
               subTitle: "Get in touch",
             ),
+           SizedBox(height: height*.05,),
            buildCard(),
-
-            FooterSection(),
+          const  FooterSection(),
           ],
         ),
       ),

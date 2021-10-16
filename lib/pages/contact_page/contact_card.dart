@@ -12,7 +12,6 @@ class ContactSection extends StatelessWidget {
   Widget build(BuildContext context) {
     PersonalInfo info = PersonalInfo();
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     var theme = Theme.of(context);
     bool isDark = Provider.of<ThemeProvider>(context).isDarkMode;
 
@@ -45,20 +44,20 @@ class ContactSection extends StatelessWidget {
             borderRadius: const BorderRadius.all(
               Radius.circular(16),
             ),
-            elevation: 1,
+            elevation:isDark? 1:1,
             child: Container(
                 padding: const EdgeInsets.symmetric(
                     vertical: 24, horizontal:8),
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width:8,
                     ),
                     CircleAvatar(
                       backgroundColor: isDark?Colors.transparent:theme.primaryColor.withOpacity(.5),
                       child: Icon(icon,color: Colors.white,),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width:16,
                     ),
                     Expanded(
@@ -69,7 +68,7 @@ class ContactSection extends StatelessWidget {
                             Text(
                               title,
                               style: theme.textTheme.headline1!.copyWith(
-                                  fontSize: 20, fontWeight: FontWeight.w500),
+                                  fontSize: 20, fontWeight: FontWeight.w600),
                             ),
                             SizedBox(
                               height: height * 0.01,
@@ -77,7 +76,7 @@ class ContactSection extends StatelessWidget {
                             Text(
                               subtitle,
                               style: theme.textTheme.headline2!.copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w400),
+                                  fontSize: 18, fontWeight: FontWeight.w500),
                             )
                           ]),
                     ),

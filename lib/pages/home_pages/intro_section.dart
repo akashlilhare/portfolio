@@ -2,7 +2,6 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/constants/personal_info.dart';
 import 'package:portfoli/pages/contact_page/contact_page.dart';
 import 'package:portfoli/utils/responsive.dart';
@@ -111,7 +110,7 @@ class _IntroSectionState extends State<IntroSection> {
                     fontWeight: FontWeight.bold,
                     letterSpacing: 2,),
               ),
-              WidgetSpan(
+              const WidgetSpan(
                   child: SizedBox(
                 height: 28,
               )),
@@ -143,7 +142,7 @@ class _IntroSectionState extends State<IntroSection> {
             height: 40,
           ),
           Text(
-            "I'm Durg base Flutter developer. I like to code things from scratch, and enjoy bringing ideas to life in the browser.",
+            "I'm Durg base Full Stack developer. I like to code things from scratch, and enjoy bringing ideas to life in the browser.",
             style:CustomResponsiveBuilder(context: context).descriptionStyle(),
             textAlign: TextAlign.start,
           ),
@@ -225,7 +224,7 @@ class _IntroSectionState extends State<IntroSection> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Spacer(),
+                        const Spacer(),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -250,7 +249,7 @@ class _IntroSectionState extends State<IntroSection> {
                             Expanded(child: buildImage()),
                           ],
                         ),
-                        Spacer()
+                        const Spacer()
 
 
                       ],

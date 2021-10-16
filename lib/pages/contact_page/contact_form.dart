@@ -1,18 +1,13 @@
 import 'dart:convert';
-
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:portfoli/constants/personal_info.dart';
-import 'package:portfoli/utils/responsive.dart';
 import 'package:portfoli/widgets/send_button.dart';
 import '../../constants/constants.dart';
 import 'package:http/http.dart' as http;
 
 
-
 class ContactForm extends StatefulWidget {
   const ContactForm({Key? key}) : super(key: key);
-
   @override
   State<ContactForm> createState() => _ContactFormState();
 }
@@ -114,8 +109,8 @@ class _ContactFormState extends State<ContactForm> {
 
       getTextField(Widget field){
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12)),border: Border.all(color:theme.colorScheme.secondaryVariant,width: 1.5)),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(borderRadius:const BorderRadius.all(Radius.circular(12)),border: Border.all(color:theme.colorScheme.secondaryVariant,width: 1.5)),
           child: field,
         );
       }
@@ -125,7 +120,6 @@ class _ContactFormState extends State<ContactForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             getTextFieldTitle("Name"),
-
             getTextField(
             TextFormField(
                 controller: nameController,

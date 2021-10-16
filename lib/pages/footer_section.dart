@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portfoli/constants/app_theme.dart';
-import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/constants/personal_info.dart';
 import 'package:portfoli/models/important_link_model.dart';
 import 'package:portfoli/pages/project_page/project_page.dart';
@@ -112,7 +111,7 @@ class FooterSection extends StatelessWidget {
             style: TextButton.styleFrom(
                 alignment:Alignment.centerLeft ,
                 primary: Colors.white,
-                minimumSize: Size(600,50),
+                minimumSize: const Size(600,50),
                 padding: const EdgeInsets.only(right: 20)),
             onPressed:(){ item.onTap();},
 

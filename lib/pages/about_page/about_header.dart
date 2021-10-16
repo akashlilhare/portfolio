@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:portfoli/constants/app_theme.dart';
 import 'package:portfoli/constants/personal_info.dart';
 import 'package:portfoli/utils/responsive.dart';
 import 'package:portfoli/widgets/custom_button.dart';
-import 'package:portfoli/widgets/seaction_sub_header.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutHeader extends StatelessWidget {
@@ -15,7 +12,6 @@ class AboutHeader extends StatelessWidget {
     PersonalInfo info = PersonalInfo();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    bool isDark = Provider.of<ThemeProvider>(context).isDarkMode;
 
     var theme = Theme.of(context);
     String p1 =
@@ -64,7 +60,7 @@ class AboutHeader extends StatelessWidget {
           ),
           padding: EdgeInsets.all(height * .01),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
+              borderRadius:const BorderRadius.all(
                 Radius.circular(12),
               ),
               color:theme.colorScheme.secondary),

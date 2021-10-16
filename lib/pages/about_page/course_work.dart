@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/utils/responsive.dart';
-import 'package:portfoli/widgets/seaction_sub_header.dart';
+import 'package:portfoli/widgets/section_sub_header.dart';
 
 class CourseWork extends StatelessWidget {
   const CourseWork({Key? key}) : super(key: key);
@@ -29,7 +28,7 @@ class CourseWork extends StatelessWidget {
 
     buildCourseWork(){
       return GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: courses.length,
         gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(

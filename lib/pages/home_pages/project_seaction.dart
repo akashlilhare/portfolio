@@ -1,13 +1,11 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:portfoli/constants/app_theme.dart';
-import 'package:portfoli/constants/constants.dart';
 import 'package:portfoli/database/project_database.dart';
 import 'package:portfoli/pages/project_page/project_page.dart';
 import 'package:portfoli/utils/responsive.dart';
 import 'package:portfoli/widgets/custom_button.dart';
 import 'package:portfoli/widgets/project_detail.dart';
-import 'package:portfoli/widgets/secation_header.dart';
+import 'package:portfoli/widgets/section_header.dart';
 import 'package:provider/provider.dart';
 
 class ProjectSection extends StatefulWidget {
@@ -56,7 +54,6 @@ class _ProjectSectionState extends State<ProjectSection> {
     double width = MediaQuery.of(context).size.width;
     var theme = Theme.of(context);
     bool isDark = Provider.of<ThemeProvider>(context).isDarkMode;
-    var resposive = CustomResponsiveBuilder(context: context);
     buildLeftButton() {
       return InkWell(
           onTap: () => _onRightAction(),
@@ -66,8 +63,8 @@ class _ProjectSectionState extends State<ProjectSection> {
                     ? isDark
                     ? theme.colorScheme.primary
                     : theme.colorScheme.secondary : theme.colorScheme.primaryVariant,
-                borderRadius: BorderRadius.all(Radius.circular(8))),
-            padding: EdgeInsets.all(6),
+                borderRadius:const BorderRadius.all(Radius.circular(8))),
+            padding:const EdgeInsets.all(6),
             child: Icon(
               Icons.arrow_forward_ios,
               color: i1 < projectList.length - 1
@@ -116,11 +113,11 @@ class _ProjectSectionState extends State<ProjectSection> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               buildRightButton(),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               buildLeftButton(),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
             ],
@@ -219,11 +216,11 @@ class _ProjectSectionState extends State<ProjectSection> {
     buildHorizontalCard() {
       buildImage(String imgSrc) {
         return Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(16))),
           constraints: BoxConstraints(maxWidth: 600, maxHeight: height * .5),
           child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(16)),
+              borderRadius:const BorderRadius.all(Radius.circular(16)),
               child: Image.asset(imgSrc)),
         );
       }
@@ -254,7 +251,7 @@ class _ProjectSectionState extends State<ProjectSection> {
               Flexible(
                   child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 1.5),
@@ -264,7 +261,7 @@ class _ProjectSectionState extends State<ProjectSection> {
               ),
               Flexible(
                   child: Text(subTitle,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.blueGrey, letterSpacing: 1.5))),
               SizedBox(
                 height: height * .05,
