@@ -127,7 +127,7 @@ class ProjectDetailBox extends StatelessWidget {
     return Padding(
       padding:  EdgeInsets.symmetric(horizontal:width<500? 0: width< 725 ? width * .05 :width<1000 ? width*.1 : width*.15),
       child: Dialog(
-        backgroundColor:isDark? theme.scaffoldBackgroundColor: theme.primaryColor,
+        backgroundColor:isDark? theme.primaryColor : theme.scaffoldBackgroundColor,
 
 
         shape:const RoundedRectangleBorder(
